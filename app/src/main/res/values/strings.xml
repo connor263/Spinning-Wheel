@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Spinning Wheel</string>
+
+    <string name="one_signal_key">6555d469-d48b-4169-8629-95541706acdc</string>
+    <string name="apps_dev_key">6m4pzg2jrYtb422tMnW7X9</string>
+    <string name="fb_app_id">430164825207089</string>
+    <string name="fb_at">bmrPE41oqrXPRM0Y0i2yt5jjot4</string>
+</resources>
