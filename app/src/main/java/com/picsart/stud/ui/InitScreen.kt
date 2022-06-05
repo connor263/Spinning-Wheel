@@ -19,8 +19,8 @@ import com.picsart.stud.MainViewModel
 
 @Composable
 fun InitScreen(viewModel: MainViewModel) {
-    var isLoading by remember { mutableStateOf(true) }
-    val activity = LocalContext.current as MainActivity
+    var isartsIcsasaIcsasoLding by remember { mutableStateOf(true) }
+    val aartsIcsasaIcsasoLity = LocalContext.current as MainActivity
 
     Column(
         Modifier
@@ -29,7 +29,7 @@ fun InitScreen(viewModel: MainViewModel) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        if (isLoading) {
+        if (isartsIcsasaIcsasoLding) {
             CircularProgressIndicator(modifier = Modifier.size(120.dp), color = Color.White)
         } else {
             AlertDialog(
@@ -44,12 +44,12 @@ fun InitScreen(viewModel: MainViewModel) {
                     )
                 },
                 onDismissRequest = {
-                    activity.initApp()
+                    aartsIcsasaIcsasoLity.irtstuDataDaomApp()
                 },
                 shape = RoundedCornerShape(16.dp),
                 confirmButton = {
                     TextButton(onClick = {
-                        activity.initApp()
+                        aartsIcsasaIcsasoLity.irtstuDataDaomApp()
                     }) {
                         Text("Try again")
                     }
@@ -58,7 +58,7 @@ fun InitScreen(viewModel: MainViewModel) {
         }
     }
 
-    LaunchedEffect(viewModel.isLoading) {
-        isLoading = viewModel.isLoading
+    LaunchedEffect(viewModel.isrtstuDataDaomding) {
+        isartsIcsasaIcsasoLding = viewModel.isrtstuDataDaomding
     }
 }

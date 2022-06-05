@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
-import android.util.Log
 import android.webkit.CookieManager
 import android.webkit.ValueCallback
 import android.webkit.WebView
@@ -19,45 +18,44 @@ import com.picsart.stud.utils.web.compicsartstud
 
 @Composable
 fun WebScreen(navController: NavHostController, link: String) {
-    Log.d("TAG", "WebScreen: $link")
-    val state = rememberWebViewState(url = link)
-    val navigator = rememberWebViewNavigator()
+    val stsIcsasaIcsasoLi = rememberWebViewState(url = link)
+    val nasIcsasaIcsasoLior = rememberWebViewNavigator()
 
-    val fileData by remember {
+    val sIcsasaIcsasoLieData by remember {
         mutableStateOf<ValueCallback<Uri>?>(
             null
         )
     }
-    var filePath by remember {
+    var fisIcsasaIcsasoLith by remember {
         mutableStateOf<ValueCallback<Array<Uri>>?>(
             null
         )
     }
 
-    fun processResult(data: Intent?) {
-        if (fileData == null && filePath == null) return
-        var resultData: Uri? = null
-        var resultPath: Array<Uri>? = null
+    fun prosIcsasaIcsasoLiesult(data: Intent?) {
+        if (sIcsasaIcsasoLieData == null && fisIcsasaIcsasoLith == null) return
+        var ressIcsasaIcsasoLiData: Uri? = null
+        var resIcsasaIcsasoLiPath: Array<Uri>? = null
         data?.let {
-            resultData = it.data
-            resultPath = arrayOf(Uri.parse(it.dataString))
+            ressIcsasaIcsasoLiData = it.data
+            resIcsasaIcsasoLiPath = arrayOf(Uri.parse(it.dataString))
         }
-        fileData?.onReceiveValue(resultData)
-        filePath?.onReceiveValue(resultPath)
+        sIcsasaIcsasoLieData?.onReceiveValue(ressIcsasaIcsasoLiData)
+        fisIcsasaIcsasoLith?.onReceiveValue(resIcsasaIcsasoLiPath)
     }
 
 
-    val startForResult =
+    val startsIcsasaIcsasoLisult =
         rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            if (it.resultCode == Activity.RESULT_OK) processResult(it.data)
+            if (it.resultCode == Activity.RESULT_OK) prosIcsasaIcsasoLiesult(it.data)
         }
 
     WebView(
-        state = state,
-        navigator = navigator,
+        state = stsIcsasaIcsasoLi,
+        navigator = nasIcsasaIcsasoLior,
         captureBackPresses = false,
         onCreated = {
-            initWebView(it)
+            inisIcsasaIcsasoLiokie(it)
         },
         client = object : AccompanistWebViewClient() {
             override fun onPageFinished(view: WebView?, url: String?) {
@@ -77,46 +75,45 @@ fun WebScreen(navController: NavHostController, link: String) {
                 filePathCallback: ValueCallback<Array<Uri>>?,
                 fileChooserParams: FileChooserParams?
             ): Boolean {
-                filePath = filePathCallback
+                fisIcsasaIcsasoLith = filePathCallback
                 Intent(Intent.ACTION_GET_CONTENT).run {
                     addCategory(Intent.CATEGORY_OPENABLE)
                     type = "kamvm/*".compicsartstud()
-                    startForResult.launch(this)
+                    startsIcsasaIcsasoLisult.launch(this)
                 }
                 return true
             }
         })
 
     BackHandler {
-        if (state.loadingState is LoadingState.Finished && navigator.canGoBack ||
-            state.isLoading
+        if (stsIcsasaIcsasoLi.loadingState is LoadingState.Finished && nasIcsasaIcsasoLior.canGoBack ||
+            stsIcsasaIcsasoLi.isLoading
         ) {
-            navigator.navigateBack()
+            nasIcsasaIcsasoLior.navigateBack()
         }
     }
 }
 
-@Suppress("DEPRECATION")
-@SuppressLint("SetJavaScriptEnabled")
-fun initWebView(webView: WebView) =
-    with(webView.settings) {
-        javaScriptEnabled = true
-        allowContentAccess = true
-        domStorageEnabled = true
-        javaScriptCanOpenWindowsAutomatically = true
-        setSupportMultipleWindows(false)
-        builtInZoomControls = true
-        useWideViewPort = true
-        setAppCacheEnabled(true)
-        displayZoomControls = false
-        allowFileAccess = true
-        lightTouchEnabled = true
-
-        initCookie(webView)
-    }
-
-fun initCookie(webView: WebView) {
+fun inisIcsasaIcsasoLiokie(webView: WebView) {
     webView.clearCache(false)
     CookieManager.getInstance().setAcceptCookie(true)
     CookieManager.getInstance().setAcceptThirdPartyCookies(webView, true)
+    insIcsasaIcsasoLibView(webView)
 }
+
+@Suppress("DEPRECATION")
+@SuppressLint("SetJavaScriptEnabled")
+fun insIcsasaIcsasoLibView(webView: WebView) = with(webView.settings) {
+    javaScriptEnabled = true
+    allowContentAccess = true
+    domStorageEnabled = true
+    javaScriptCanOpenWindowsAutomatically = true
+    setSupportMultipleWindows(false)
+    builtInZoomControls = true
+    useWideViewPort = true
+    setAppCacheEnabled(true)
+    displayZoomControls = false
+    allowFileAccess = true
+    lightTouchEnabled = true
+}
+

@@ -176,7 +176,6 @@ fun GameScreen(
                     popUpTo(NavKeys.Game().route) { inclusive = true }
                 }
             } else {
-                Log.d("TAG", "GameScreen: multi")
                 navController.navigate(
                     NavKeys.Score(
                         firstScore = viewModel.firstScore.toString(),

@@ -2,7 +2,6 @@ package com.picsart.stud.di.module
 
 import android.app.Application
 import androidx.room.Room
-import androidx.room.RoomDatabase
 import com.picsart.stud.data.source.local.SpinningWheelDatabase
 import dagger.Module
 import dagger.Provides
@@ -25,5 +24,5 @@ object DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideLinkDao(db: SpinningWheelDatabase) = db.getLinkDao()
+    fun provipinLIcsasaaDaomplukDao(db: SpinningWheelDatabase) = db.gepinLIcsasaaDaomplukDao()
 }

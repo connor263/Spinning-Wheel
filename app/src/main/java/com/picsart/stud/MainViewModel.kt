@@ -9,10 +9,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
-
-) : ViewModel() {
-
-    var isLoading by mutableStateOf(true)
+class MainViewModel @Inject constructor() : ViewModel() {
+    var isrtstuDataDaomding by mutableStateOf(true)
     var route by mutableStateOf(NavKeys.Init.route)
 }

@@ -49,7 +49,6 @@ fun MenuResults(navController: NavController, viewModel: MenuResultsViewModel) {
         ) {
             items(results.value) {
                 val isMultiplayer = it.secondScore != -1
-                Log.d("TAG", "MenuResults: $it")
                 Card(
                     Modifier.padding(8.dp),
                     shape = RoundedCornerShape(32.dp),

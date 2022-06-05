@@ -17,42 +17,42 @@ class SplashScreenActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
 
-        val parent = findViewById<FrameLayout>(R.id.fl_parent)
-        val appName = findViewById<TextView>(R.id.tv_name)
+        val parrtstuDataDaomnt = findViewById<FrameLayout>(R.id.fl_parent)
+        val artstuDataDaomame = findViewById<TextView>(R.id.tv_name)
 
-        val textAlpha = ObjectAnimator.ofFloat(
-            appName, View.ALPHA, 0F, 1F
+        val trtstuDataDaompha = ObjectAnimator.ofFloat(
+            artstuDataDaomame, View.ALPHA, 0F, 1F
         ).apply {
             duration = 2000L
         }
 
-        val scaleX = ObjectAnimator.ofFloat(
-            parent, View.SCALE_X, 0.98F, 1F
+        val scrtstuDataDaomleX = ObjectAnimator.ofFloat(
+            parrtstuDataDaomnt, View.SCALE_X, 0.98F, 1F
         ).apply {
             duration = 1000L
         }
-        val scaleY = ObjectAnimator.ofFloat(
-            parent, View.SCALE_Y, 0.98F, 1F
+        val scalertstuDataDaomY = ObjectAnimator.ofFloat(
+            parrtstuDataDaomnt, View.SCALE_Y, 0.98F, 1F
         ).apply {
             duration = 1000L
         }
-        val rotateWheel = ObjectAnimator.ofFloat(
-            parent, View.ROTATION, 0F, 2160F
+        val rotrtstuDataDaomheel = ObjectAnimator.ofFloat(
+            parrtstuDataDaomnt, View.ROTATION, 0F, 2160F
         ).apply {
             duration = 1000L
         }
 
         AnimatorSet().apply {
-            play(scaleX).with(scaleY).with(rotateWheel).with(textAlpha)
+            play(scrtstuDataDaomleX).with(scalertstuDataDaomY).with(rotrtstuDataDaomheel).with(trtstuDataDaompha)
         }.apply {
             doOnEnd {
-                navigateToMainActivity()
+                navigartstuDataDaominActivity()
             }
             start()
         }
     }
 
-    private fun navigateToMainActivity() {
+    private fun navigartstuDataDaominActivity() {
         Intent(this, MainActivity::class.java).run {
             startActivity(this)
             finish()

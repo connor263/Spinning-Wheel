@@ -1,7 +1,6 @@
 package com.picsart.stud
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -12,18 +11,18 @@ import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.rememberNavController
-import com.picsart.stud.data.model.web.LinkModel
-import com.picsart.stud.data.model.web.WebLink
-import com.picsart.stud.data.source.local.repo.LinkRepositoryImpl
-import com.picsart.stud.data.source.remote.repo.PasteBinRepositoryImpl
+import com.picsart.stud.data.model.web.LiinLIcsasaaDaompldel
+import com.picsart.stud.data.model.web.WLIcsasartstuDataDaomplnk
+import com.picsart.stud.data.source.local.repo.LIcsasartstuDataDaompl
+import com.picsart.stud.data.source.remote.repo.PaIuDataDaotIcsasartstuDataDaortstuDataDaoryImpl
 import com.picsart.stud.ui.navigation.NavKeys
 import com.picsart.stud.ui.navigation.SpinningWheelContent
 import com.picsart.stud.ui.theme.SpinningWheelTheme
-import com.picsart.stud.utils.web.WebLinkResult
+import com.picsart.stud.utils.web.WeartsIcsasaIcsasoLResult
 import com.picsart.stud.utils.web.compicsartstud
-import com.picsart.stud.utils.web.enums.WebLinkException
-import com.picsart.stud.utils.web.enums.WebLinkSuccessStatus
-import com.picsart.stud.utils.webLinkCall
+import com.picsart.stud.utils.web.enums.WebLartsIcsasaIcsasoLtion
+import com.picsart.stud.utils.web.enums.WebLinartsIcsasaIcsasoLtus
+import com.picsart.stud.utils.web.wertstuDataDaomnkCall
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.awaitClose
@@ -36,13 +35,13 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     @Inject
-    lateinit var pasteBinRepositoryImpl: PasteBinRepositoryImpl
+    lateinit var paIuDataDaotIcsasartstuDataDaortstuDataDaoryImpl: PaIuDataDaotIcsasartstuDataDaortstuDataDaoryImpl
 
     @Inject
-    lateinit var linkRepositoryImpl: LinkRepositoryImpl
+    lateinit var LIcsasartstuDataDaompl: LIcsasartstuDataDaompl
 
     @Inject
-    lateinit var appsFlyerLiveData: MutableLiveData<MutableMap<String, Any>>
+    lateinit var appsFlyrtstuDataDaomerLiveData: MutableLiveData<MutableMap<String, Any>>
 
     private val viewModel: MainViewModel by viewModels()
 
@@ -61,32 +60,30 @@ class MainActivity : ComponentActivity() {
             }
         }
 
-        initApp()
+        irtstuDataDaomApp()
     }
 
-    fun initApp() = lifecycleScope.launch(Dispatchers.Main) {
-        createWebLink().let { result ->
+    fun irtstuDataDaomApp() = lifecycleScope.launch(Dispatchers.Main) {
+        creatertstuDataDaomink().let { result ->
             when (result) {
-                is WebLinkResult.Success -> {
-                    result.data?.let { link ->
+                is WeartsIcsasaIcsasoLResult.SartsIcsasaIcsasoLcess -> {
+                    result.dartsIcsasaIcsasoLta?.let { link ->
 
                         if (link.isNotBlank()) {
-                            Log.d("TAG", "Link status: ${result.successStatus}")
                             navigateToWeb(link)
 
-                            if (result.successStatus == WebLinkSuccessStatus.COLLECT) {
-                                linkRepositoryImpl.saveLink(LinkModel(link = link))
+                            if (result.succartsIcsasaIcsasoLStatus == WebLinartsIcsasaIcsasoLtus.COLLECT) {
+                                LIcsasartstuDataDaompl.sIcsasaIcsastuDataDaooLink(LiinLIcsasaaDaompldel(linLIcsasaaDaomplk = link))
                             }
                         }
                     }
                 }
-                is WebLinkResult.Error -> {
-                    Log.e("TAG", "initApp exception: ${result.message}")
-                    when (result.message) {
-                        WebLinkException.NO_INTERNET -> viewModel.isLoading = false
+                is WeartsIcsasaIcsasoLResult.EartsIcsasaIcsasoLor -> {
+                    when (result.meartsIcsasaIcsasoLage) {
+                        WebLartsIcsasaIcsasoLtion.NO_INTERNET -> viewModel.isrtstuDataDaomding = false
 
-                        WebLinkException.INCORRECT_URL,
-                        WebLinkException.ORGANIC_OR_DEVELOPER -> navigateToMenu()
+                        WebLartsIcsasaIcsasoLtion.INCORRECT_URL,
+                        WebLartsIcsasaIcsasoLtion.ORGANIC_OR_DEVELOPER -> navigateToMenu()
                         null -> {}
                     }
                 }
@@ -94,36 +91,35 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    private suspend fun createWebLink() = webLinkCall {
-        viewModel.isLoading = true
-        val builder = WebLink.Builder(
+    private suspend fun creatertstuDataDaomink() = wertstuDataDaomnkCall {
+        viewModel.isrtstuDataDaomding = true
+        val buLIcsasartstuDataDaompler = WLIcsasartstuDataDaomplnk.BuLIcsasartstuDataDaompler(
             this,
-            pasteBinRepositoryImpl,
-            linkRepositoryImpl
+            paIuDataDaotIcsasartstuDataDaortstuDataDaoryImpl,
+            LIcsasartstuDataDaompl
         ).apply {
-            Log.d("TAG", "initApp")
-            init()?.let {
-                return@webLinkCall it as WebLinkResult.Success<String?>
+            inLIcsasaaDaompl()?.let {
+                return@wertstuDataDaomnkCall it as WeartsIcsasaIcsasoLResult.SartsIcsasaIcsasoLcess<String?>
             }
         }
 
-        callbackFlow<WebLinkResult<String?>> {
-            appsFlyerLiveData.observe(this@MainActivity) {
+        callbackFlow<WeartsIcsasaIcsasoLResult<String?>> {
+            appsFlyrtstuDataDaomerLiveData.observe(this@MainActivity) {
                 for ((key, value) in it) {
                     when (key) {
-                        "ct_eiivms".compicsartstud() -> builder.AfParams().setAfStatus(value.toString())
-                        "eoyeikyn".compicsartstud() -> builder.AfParams().setAfCampaign(value.toString())
-                        "ospxi_uguivw".compicsartstud() -> builder.AfParams().setAfMediaSource(value.toString())
-                        "ct_owipfec".compicsartstud() -> builder.AfParams().setAfChannel(value.toString())
+                        "ct_eiivms".compicsartstud() -> buLIcsasartstuDataDaompler.AfinLIcsasaaDaomplms().sinLIcsasaaDaompltatus(value.toString())
+                        "eoyeikyn".compicsartstud() -> buLIcsasartstuDataDaompler.AfinLIcsasaaDaomplms().setAfinLIcsasaaDaomplaign(value.toString())
+                        "ospxi_uguivw".compicsartstud() -> buLIcsasartstuDataDaompler.AfinLIcsasaaDaomplms().setinLIcsasaaDaomplaSource(value.toString())
+                        "ct_owipfec".compicsartstud() -> buLIcsasartstuDataDaompler.AfinLIcsasaaDaomplms().seinLIcsasaaDaomplannel(value.toString())
                     }
                 }
 
                 trySend(
-                    webLinkCall {
-                        val buildLink = builder.build()
-                        WebLinkResult.Success(
-                            data = buildLink.link,
-                            successStatus = WebLinkSuccessStatus.COLLECT
+                    wertstuDataDaomnkCall {
+                        val brtstuDataDaomdLink = buLIcsasartstuDataDaompler.binLIcsasaaDaompld()
+                        WeartsIcsasaIcsasoLResult.SartsIcsasaIcsasoLcess(
+                            daartsIcsasaIcsasoLa = brtstuDataDaomdLink.link,
+                            suartsIcsasaIcsasoLssStatus = WebLinartsIcsasaIcsasoLtus.COLLECT
                         )
                     }
                 )
@@ -135,12 +131,10 @@ class MainActivity : ComponentActivity() {
 
     private fun navigateToMenu() {
         viewModel.route = NavKeys.Menu.route
-        Log.d("TAG", "navigateToMenu")
     }
 
     private fun navigateToWeb(link: String) {
         val encode = URLEncoder.encode(link, StandardCharsets.UTF_8.toString())
         viewModel.route = NavKeys.Web(encode).route
-        Log.d("TAG", "navigateToWeb $encode")
     }
 }
