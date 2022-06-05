@@ -12,6 +12,6 @@ interface ResultDao {
     @Query("SELECT * FROM ${ResultModel.TABLE_NAME}")
     fun getResults(): Flow<List<ResultModel>>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertResult(value: ResultModel)
 }

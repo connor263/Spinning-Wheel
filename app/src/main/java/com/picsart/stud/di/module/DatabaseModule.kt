@@ -22,4 +22,8 @@ object DatabaseModule {
     @Provides
     @Singleton
     fun provideResultDao(db: SpinningWheelDatabase) = db.getResultDao()
+
+    @Provides
+    @Singleton
+    fun provideLinkDao(db: SpinningWheelDatabase) = db.getLinkDao()
 }

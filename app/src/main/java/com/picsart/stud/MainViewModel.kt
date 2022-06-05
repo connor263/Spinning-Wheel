@@ -1,6 +1,10 @@
 package com.picsart.stud
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import com.picsart.stud.ui.navigation.NavKeys
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -8,4 +12,7 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
 
 ) : ViewModel() {
+
+    var isLoading by mutableStateOf(true)
+    var route by mutableStateOf(NavKeys.Init.route)
 }

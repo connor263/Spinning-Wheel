@@ -1,29 +1,32 @@
 package com.picsart.stud.ui.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.*
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.picsart.stud.MainViewModel
+import com.picsart.stud.ui.InitScreen
 import com.picsart.stud.ui.game.GameScreen
 import com.picsart.stud.ui.game.GameViewModel
 import com.picsart.stud.ui.game.menu.MenuScreen
 import com.picsart.stud.ui.game.menu.result.MenuResults
 import com.picsart.stud.ui.game.menu.result.MenuResultsViewModel
 import com.picsart.stud.ui.game.score.ScoreScreen
+import com.picsart.stud.ui.web.WebScreen
 
 @Composable
 fun SpinningWheelContent(navController: NavHostController, mainViewModel: MainViewModel) {
 
-    NavHost(navController = navController, startDestination = "menu") {
+    NavHost(navController = navController, startDestination = NavKeys.Init.route) {
         // Menu
         composable(NavKeys.Menu.route) {
             MenuScreen(navController)
         }
         composable(NavKeys.Results.route) {
             val viewModel: MenuResultsViewModel = hiltViewModel()
-            MenuResults(navController,viewModel)
+            MenuResults(navController, viewModel)
         }
 
         // Game
@@ -64,12 +67,37 @@ fun SpinningWheelContent(navController: NavHostController, mainViewModel: MainVi
                 level
             )
         }
+
+        // Init
+        composable(NavKeys.Init.route) {
+            InitScreen(mainViewModel)
+        }
+
+        // Web
+        composable(NavKeys.Web().route) {
+            it.arguments?.getString("link")?.let { link ->
+                WebScreen(navController, link)
+            }
+        }
+    }
+    LaunchedEffect(mainViewModel.route) {
+        mainViewModel.route.let {
+            if (it.isNotBlank()) {
+                navController.navigate(it) {
+                    popUpTo(NavKeys.Init.route) { inclusive = true }
+                }
+            }
+        }
     }
 }
 
 sealed class NavKeys(val route: String) {
+    object Init : NavKeys("init")
     object Menu : NavKeys("menu")
     object Results : NavKeys("results")
+
+    data class Web(val link: String = "{link}") : NavKeys("web/$link")
+
     data class Game(val singleplayer: String = "{singleplayer}") :
         NavKeys("game?singleplayer=$singleplayer")
 
@@ -79,8 +107,4 @@ sealed class NavKeys(val route: String) {
         val level: String = "{level}",
     ) :
         NavKeys("score?first_score=$firstScore&second_score=$secondScore&level=$level")
-
-
-    object Init : NavKeys("init")
-    data class Web(val link: String) : NavKeys("web/$link")
 }

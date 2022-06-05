@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class ResultModel(
-    @PrimaryKey(autoGenerate = true) val id: Int = 1,
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val firstScore: Int = 0,
     val secondScore: Int = -1,
     val level: Int = 1

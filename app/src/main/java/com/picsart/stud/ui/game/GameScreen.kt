@@ -165,6 +165,7 @@ fun GameScreen(
         val level = viewModel.level
 
         if (level > MAX_LEVEL) {
+            viewModel.saveResult()
             if (singleplayer) {
                 navController.navigate(
                     NavKeys.Score(
@@ -186,7 +187,6 @@ fun GameScreen(
                     popUpTo(NavKeys.Game().route) { inclusive = true }
                 }
             }
-            viewModel.saveResult()
         }
     }
 }

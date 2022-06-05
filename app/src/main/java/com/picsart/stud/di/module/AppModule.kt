@@ -1,6 +1,7 @@
 package com.picsart.stud.di.module
 
 import androidx.lifecycle.MutableLiveData
+import com.picsart.stud.data.source.remote.PasteBinService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,7 +17,7 @@ object AppModule {
     @Provides
     @Singleton
     fun provideRetrofit(): Retrofit = Retrofit.Builder()
-        .baseUrl("")
+        .baseUrl("https://pastebin.com/raw/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
@@ -24,4 +25,9 @@ object AppModule {
     @Singleton
     fun provideLiveData(): MutableLiveData<MutableMap<String, Any>> =
         MutableLiveData<MutableMap<String, Any>>()
+
+    @Provides
+    @Singleton
+    fun providePastebinService(retrofit: Retrofit): PasteBinService =
+        retrofit.create(PasteBinService::class.java)
 }
